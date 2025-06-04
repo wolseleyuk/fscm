@@ -1,10 +1,10 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Common = {}));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FSCM = {}));
 })(this, (function (exports) { 'use strict';
 
-    class QuickAvailabilitySDK {
+    class QuickAvailability {
         find(value, r) {
             const itemDetail = {
                 ItemIdentifier: value,
@@ -28,7 +28,7 @@
         }
     }
 
-    exports.QuickAvailabilitySDK = QuickAvailabilitySDK;
+    exports.QuickAvailability = QuickAvailability;
 
 }));
 //# sourceMappingURL=bundle.js.map

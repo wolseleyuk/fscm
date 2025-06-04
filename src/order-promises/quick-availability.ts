@@ -1,8 +1,9 @@
 import { IRestObject } from '@wolseley/common'
 
-export class QuickAvailabilitySDK {
+export class QuickAvailability {
 
     find(value: string, r: IRestObject) {
+
         const itemDetail = {
             ItemIdentifier: value,
             RequestedDateTime: new Date().toISOString(),

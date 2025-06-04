@@ -1,2 +1,2 @@
-export * from './quick-availability-sdk';
+export * from './quick-availability';
 //# sourceMappingURL=index.js.map
