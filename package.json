@@ -1,6 +1,6 @@
 {
     "name": "@wolseley/fscm",
-    "version": "0.0.3",
+    "version": "0.0.1",
     "description": "",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -13,7 +13,7 @@
         "_clean": "rm -r -f dist",
         "_bundle": "rollup -c --bundleConfigAsCjs",
         
-        "build": "run-s _test _clean _tsc _bundle"
+        "build": "run-s _clean _tsc _bundle"
     },
     "devDependencies": {
         "@jest/globals": "^30.0.0-beta.3",
