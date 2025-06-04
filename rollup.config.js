@@ -3,7 +3,7 @@ const dts = require("rollup-plugin-dts").default;
 const resolve = require('@rollup/plugin-node-resolve').default;
 const terser = require('@rollup/plugin-terser').default;
 
-const libraryName = "Common";
+const libraryName = "FSCM";
 
 const config = [
     {

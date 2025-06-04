@@ -1,1 +1,1 @@
-export * from './quick-availability';
+export * from './quick-availability-sdk';

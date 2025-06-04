@@ -1,7 +1,7 @@
 import { IRestObject } from '@wolseley/common';
 
-declare class QuickAvailability {
+declare class QuickAvailabilitySDK {
     find(value: string, r: IRestObject): Promise<any>;
 }
 
-export { QuickAvailability };
+export { QuickAvailabilitySDK };

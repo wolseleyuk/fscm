@@ -1,4 +1,4 @@
-export class QuickAvailability {
+export class QuickAvailabilitySDK {
     find(value, r) {
         const itemDetail = {
             ItemIdentifier: value,
@@ -21,4 +21,4 @@ export class QuickAvailability {
         return r.fetch();
     }
 }
-//# sourceMappingURL=quick-availability.js.map
+//# sourceMappingURL=quick-availability-sdk.js.map

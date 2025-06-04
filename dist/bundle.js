@@ -4,7 +4,7 @@
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Common = {}));
 })(this, (function (exports) { 'use strict';
 
-    class QuickAvailability {
+    class QuickAvailabilitySDK {
         find(value, r) {
             const itemDetail = {
                 ItemIdentifier: value,
@@ -28,7 +28,7 @@
         }
     }
 
-    exports.QuickAvailability = QuickAvailability;
+    exports.QuickAvailabilitySDK = QuickAvailabilitySDK;
 
 }));
 //# sourceMappingURL=bundle.js.map

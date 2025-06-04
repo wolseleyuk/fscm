@@ -1,6 +1,6 @@
 import { IRestObject } from '@wolseley/common'
 
-export class QuickAvailability {
+export class QuickAvailabilitySDK {
 
     find(value: string, r: IRestObject) {
         const itemDetail = {
