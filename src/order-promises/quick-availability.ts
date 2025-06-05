@@ -2,7 +2,7 @@ import { IRestObject } from '@wolseley/common'
 
 export class QuickAvailability {
 
-    find(value: string, r: IRestObject) {
+    public find(value: string, r: IRestObject) {
 
         const itemDetail = {
             ItemIdentifier: value,
