@@ -1,25 +1,14 @@
 import { IRestObject } from '@wolseley/common'
+import { ItemDetail } from './models/item-detail';
+import { QuickAvailabilityFind } from './models/quick-availability-find';
 
 export class QuickAvailability {
 
     public find(value: string, r: IRestObject) {
 
-        const itemDetail = {
-            ItemIdentifier: value,
-            RequestedDateTime: new Date().toISOString(),
-            OrgInfoList: [
-                {
-                    OrgIdentifier: "1BL"
-                }
-            ]
-        };
+        const itemDetail: any = new ItemDetail({ ItemIdentifier: value }).toObject(true);
 
-        const quickAvailabilityFind = {
-            CallingInstance: "GOP",
-            CallingModule: "GOP",
-            RequestCreationDateTime: new Date().toISOString(),
-            ItemDetailList: [itemDetail]
-        };
+        const quickAvailabilityFind = new QuickAvailabilityFind({ ItemDetailList: [itemDetail] }).toObject(true);
 
         r
             .body(quickAvailabilityFind)

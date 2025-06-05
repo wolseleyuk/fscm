@@ -1,1 +1,1 @@
-export * from './quick-availability.js';
+export * from './quick-availability';

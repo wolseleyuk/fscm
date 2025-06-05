@@ -1,6 +1,6 @@
 {
     "name": "@wolseley/fscm",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -8,26 +8,27 @@
     "license": "ISC",
     "type": "module",
     "scripts": {
-        "_test": "jest",
-        "_tsc": "tsc",
         "_clean": "rm -r -f dist",
-        "_bundle": "rollup -c --bundleConfigAsCjs",
-        
-        "build": "run-s _clean _tsc _bundle"
+        "_test": "jest",
+        "build:dev": "npm run _clean && webpack --mode development",
+        "build:prod": "npm run _test && npm run _clean && webpack --mode production",
+        "build:types": "tsc --emitDeclarationOnly --outDir dist"
     },
     "devDependencies": {
         "@jest/globals": "^30.0.0-beta.3",
-        "@rollup/plugin-node-resolve": "^16.0.1",
-        "@rollup/plugin-typescript": "^12.1.2",
         "@types/jest": "^29.5.14",
+        "@types/node": "^22.15.29",
         "jest": "^29.7.0",
         "npm-run-all": "^4.1.5",
-        "rollup": "^4.41.1",
-        "rollup-plugin-dts": "^6.2.1",
-        "ts-jest": "^29.3.4"
+        "terser-webpack-plugin": "^5.3.14",
+        "ts-jest": "^29.3.4",
+        "ts-loader": "^9.5.2",
+        "typescript": "^5.8.3",
+        "webpack": "^5.99.9",
+        "webpack-cli": "^6.0.1"
     },
     "dependencies": {
-        "@rollup/plugin-terser": "^0.4.4",
+        "@wolseley/common": "^0.0.17",
         "tslib": "^2.8.1"
     }
 }
