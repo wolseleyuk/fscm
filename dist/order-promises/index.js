@@ -1,2 +1,2 @@
-export * from './quick-availability';
+export * from './quick-availability.js';
 //# sourceMappingURL=index.js.map

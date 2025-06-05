@@ -1,1 +1,1 @@
-export * from './order-promises';
+export * from './order-promises/index.js';
