@@ -5,5 +5,6 @@ export declare class ItemDetail extends BaseModel {
     OrgInfoList: Array<{
         OrgIdentifier: string;
     }>;
+    protected _required: string[];
     constructor(initialData?: any);
 }

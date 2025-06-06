@@ -7,6 +7,13 @@ export class QuickAvailabilityFind extends BaseModel {
     public RequestCreationDateTime: string = new Date().toISOString();
     public ItemDetailList: Array<{ ItemIdentifier: string }> = [];
 
+    protected _required = [
+        "CallingInstance",
+        "CallingModule",
+        "RequestCreationDateTime",
+        "ItemDetailList"
+    ]
+
     constructor(initialData?: any) {
         super();
         const data = mergeObjects(this, initialData);

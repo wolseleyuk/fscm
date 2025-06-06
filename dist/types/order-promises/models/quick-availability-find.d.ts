@@ -6,5 +6,6 @@ export declare class QuickAvailabilityFind extends BaseModel {
     ItemDetailList: Array<{
         ItemIdentifier: string;
     }>;
+    protected _required: string[];
     constructor(initialData?: any);
 }

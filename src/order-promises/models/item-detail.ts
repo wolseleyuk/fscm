@@ -6,7 +6,7 @@ export class ItemDetail extends BaseModel {
     public RequestedDateTime: string = new Date().toISOString();
     public OrgInfoList: Array<{ OrgIdentifier: string }> = [{ OrgIdentifier: "1BL" }];
 
-    private required = [
+    protected _required = [
         "ItemIdentifier",
         "RequestedDateTime",
         "OrgInfoList"

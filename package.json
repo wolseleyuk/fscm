@@ -1,6 +1,6 @@
 {
     "name": "@wolseley/fscm",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -28,7 +28,7 @@
         "webpack-cli": "^6.0.1"
     },
     "dependencies": {
-        "@wolseley/common": "^0.0.18",
+        "@wolseley/common": "^0.0.24",
         "tslib": "^2.8.1"
     }
 }
