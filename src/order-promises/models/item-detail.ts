@@ -6,6 +6,12 @@ export class ItemDetail extends BaseModel {
     public RequestedDateTime: string = new Date().toISOString();
     public OrgInfoList: Array<{ OrgIdentifier: string }> = [{ OrgIdentifier: "1BL" }];
 
+    private required = [
+        "ItemIdentifier",
+        "RequestedDateTime",
+        "OrgInfoList"
+    ];
+
     constructor(initialData?: any) {
         super();
         const data = mergeObjects(this, initialData);
