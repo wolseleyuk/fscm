@@ -1,0 +1,31 @@
+import { BaseModel } from "@wolseley/common";
+export declare class SalesOrderLineChargeComponent extends BaseModel {
+    ChargeCurrency: string | null;
+    ChargeCurrencyCode: string | null;
+    ChargeCurrencyDurationExtendedAmount: number | null;
+    ChargeCurrencyExtendedAmount: number | null;
+    ChargeCurrencyUnitPrice: number | null;
+    Explanation: string | null;
+    ExplanationMessageName: string | null;
+    HeaderCurrency: string | null;
+    HeaderCurrencyCode: string | null;
+    HeaderCurrencyDurationExtendedAmount: number | null;
+    HeaderCurrencyExtendedAmount: number | null;
+    HeaderCurrencyUnitPrice: number | null;
+    PercentOfComparisonElement: number | null;
+    PriceElement: string | null;
+    PriceElementCode: string | null;
+    PriceElementUsage: string | null;
+    PriceElementUsageCode: string | null;
+    PricingSourceId: string | null;
+    PricingSourceType: string | null;
+    PricingSourceTypeCode: string | null;
+    RollupFlag: boolean;
+    SequenceNumber: number | null;
+    SourceChargeComponentId: string | null;
+    SourceMpaId: string | null;
+    TaxIncludedFlag: boolean;
+    totalComponents: any[];
+    protected _required: string[];
+    constructor(initialData?: any);
+}

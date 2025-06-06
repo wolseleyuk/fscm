@@ -4,13 +4,13 @@ import { QuickAvailabilityFind } from './models/quick-availability-find';
 
 export class QuickAvailability {
 
-    public find(value: string, r: IRestObject) {
+    public find(value: string, Rest: IRestObject) {
 
         const itemDetail: any = new ItemDetail({ ItemIdentifier: value });
 
         const itemDetailValid = itemDetail.isValid();
 
-        if(!itemDetailValid.ok){
+        if (!itemDetailValid.ok) {
             throw new ApplicationError(itemDetailValid.message)
         };
 
@@ -18,13 +18,14 @@ export class QuickAvailability {
 
         const quickAvailabilityFindValid = quickAvailabilityFind.isValid();
 
-        if(!quickAvailabilityFindValid.ok){
+        if (!quickAvailabilityFindValid.ok) {
             throw new ApplicationError(quickAvailabilityFindValid.message)
         };
 
         const b = quickAvailabilityFind.toObject(true);
 
-        r
+        const r = Rest
+            .get("site_scm_extension:fscm-global-order-promising/quick-availability-check")
             .body(b)
             .parameters({ onlyData: false })
 
