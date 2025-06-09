@@ -71,6 +71,7 @@ class Messages {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SalesOrder: () => (/* reexport safe */ _sales_order__WEBPACK_IMPORTED_MODULE_0__.SalesOrder),
+/* harmony export */   SalesOrderCreate: () => (/* reexport safe */ _sales_order__WEBPACK_IMPORTED_MODULE_0__.SalesOrderCreate),
 /* harmony export */   SalesOrderLine: () => (/* reexport safe */ _sales_order_line__WEBPACK_IMPORTED_MODULE_1__.SalesOrderLine)
 /* harmony export */ });
 /* harmony import */ var _sales_order__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sales-order */ "./src/order-hub/sales-order.ts");
@@ -761,10 +762,12 @@ class SalesOrderLine {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SalesOrder: () => (/* binding */ SalesOrder)
+/* harmony export */   SalesOrder: () => (/* binding */ SalesOrder),
+/* harmony export */   SalesOrderCreate: () => (/* reexport safe */ _models_sales_order_create__WEBPACK_IMPORTED_MODULE_0__.SalesOrderCreate)
 /* harmony export */ });
 /* harmony import */ var _models_sales_order_create__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./models/sales-order-create */ "./src/order-hub/models/sales-order-create.ts");
 /* harmony import */ var _wolseley_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wolseley/common */ "./node_modules/@wolseley/common/dist/index.js");
+
 
 
 class SalesOrder {
@@ -793,6 +796,12 @@ class SalesOrder {
     }
     find() { }
     findAll() { }
+    submit(headerId, Rest, { fields = "HeaderId", onlyData = true } = {}) {
+        const body = {
+            SubmittedFlag: true,
+        };
+        return this._update(headerId, body, Rest, { fields, onlyData });
+    }
     update(headerId, changes, Rest, { fields = ["HeaderId"], onlyData = true } = {}) {
         const f = [
             ...fields,
@@ -1012,6 +1021,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Messages: () => (/* reexport safe */ _om_messages_index__WEBPACK_IMPORTED_MODULE_1__.Messages),
 /* harmony export */   QuickAvailability: () => (/* reexport safe */ _order_promises_index__WEBPACK_IMPORTED_MODULE_0__.QuickAvailability),
 /* harmony export */   SalesOrder: () => (/* reexport safe */ _order_hub_index__WEBPACK_IMPORTED_MODULE_2__.SalesOrder),
+/* harmony export */   SalesOrderCreate: () => (/* reexport safe */ _order_hub_index__WEBPACK_IMPORTED_MODULE_2__.SalesOrderCreate),
 /* harmony export */   SalesOrderLine: () => (/* reexport safe */ _order_hub_index__WEBPACK_IMPORTED_MODULE_2__.SalesOrderLine)
 /* harmony export */ });
 /* harmony import */ var _order_promises_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./order-promises/index */ "./src/order-promises/index.ts");
@@ -1026,7 +1036,8 @@ __webpack_require__.r(__webpack_exports__);
 const __webpack_exports__Messages = __webpack_exports__.Messages;
 const __webpack_exports__QuickAvailability = __webpack_exports__.QuickAvailability;
 const __webpack_exports__SalesOrder = __webpack_exports__.SalesOrder;
+const __webpack_exports__SalesOrderCreate = __webpack_exports__.SalesOrderCreate;
 const __webpack_exports__SalesOrderLine = __webpack_exports__.SalesOrderLine;
-export { __webpack_exports__Messages as Messages, __webpack_exports__QuickAvailability as QuickAvailability, __webpack_exports__SalesOrder as SalesOrder, __webpack_exports__SalesOrderLine as SalesOrderLine };
+export { __webpack_exports__Messages as Messages, __webpack_exports__QuickAvailability as QuickAvailability, __webpack_exports__SalesOrder as SalesOrder, __webpack_exports__SalesOrderCreate as SalesOrderCreate, __webpack_exports__SalesOrderLine as SalesOrderLine };
 
 //# sourceMappingURL=index.js.map

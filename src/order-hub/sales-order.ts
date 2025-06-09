@@ -1,9 +1,10 @@
 import { SalesOrderCreate } from "./models/sales-order-create";
-import { IRestObject, ApplicationError } from '@wolseley/common'
+import { IRestObject, ApplicationError } from '@wolseley/common';
+export { SalesOrderCreate } from "./models/sales-order-create";
 
 export class SalesOrder {
 
-    public async create(orderDetails: any, Rest: IRestObject, { fields = "", onlyData = true }  = {}) {
+    public async create(orderDetails: any, Rest: IRestObject, { fields = "", onlyData = true } = {}) {
         const trxId = await this.getSalesOrderNumber(Rest);
 
         Object.assign(orderDetails,
@@ -40,6 +41,14 @@ export class SalesOrder {
     public find() { }
 
     public findAll() { }
+
+    public submit(headerId: string, Rest: IRestObject, { fields = "HeaderId", onlyData = true } = {}) {
+        const body = {
+            SubmittedFlag: true,
+        };
+
+        return this._update(headerId, body, Rest, { fields, onlyData });
+    }
 
     public update(headerId: string, changes: any, Rest: IRestObject, { fields = ["HeaderId"], onlyData = true } = {}) {
         const f = [
