@@ -1,10 +1,10 @@
-import { IRestObject, ApplicationError } from '@wolseley/common'
+import { IRestObject, ApplicationError, IRestService, IRestResponse, IBatchOperationBodyPart } from '@wolseley/common'
 import { ItemDetail } from './models/item-detail';
 import { QuickAvailabilityFind } from './models/quick-availability-find';
 
-export class QuickAvailability {
+export class QuickAvailability implements IRestService {
 
-    public find(value: string, Rest: IRestObject) {
+    public find(value: string | null, Rest: IRestObject) {
 
         const itemDetail: any = new ItemDetail({ ItemIdentifier: value });
 
@@ -30,7 +30,33 @@ export class QuickAvailability {
             .parameters({ onlyData: false })
 
         return r.fetch();
-
     }
 
+    public findAll(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented')
+    }
+
+    public create(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented')
+    }
+
+    public create_batchPrepare(): Promise<IBatchOperationBodyPart> {
+        throw new Error('Method not yet implemented')
+    }
+
+    public update(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented.')
+    }
+
+    public update_batchPrepare(): Promise<IBatchOperationBodyPart> {
+        throw new Error('Method not yet implemented.')
+    }
+
+    public delete(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented.')
+    }
+
+    public delete_batchPrepare(): Promise<IBatchOperationBodyPart> {
+        throw new Error('Method not yet implemented.')
+    }
 }

@@ -1,11 +1,133 @@
-import { IRestObject, ApplicationError } from '@wolseley/common';
+import { IRestService, IRestObject, ApplicationError, IBatchOperationBodyPart, IRestResponse } from '@wolseley/common';
 import { SalesOrderLineCharge } from './models/sales-order-line-charge';
 import { SalesOrderLineChargeComponent } from './models/sales-order-line-charge-component';
 import { SalesOrderLineCreate } from './models/sales-order-line-create';
 
-export class SalesOrderLine {
+export class SalesOrderLine implements IRestService {
 
-    public async create(value: any, orderDetails: any, Rest: IRestObject, {fields= "", onlyData = true, sequence = null } = {}) {
+    public find(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented')
+    }
+
+    public findAll(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented')
+    }
+
+    public async create(value: any, orderDetails: any, Rest: IRestObject, { fields = "", onlyData = true, sequence = null } = {}) {
+        const lineObject = this._createPayload(value, orderDetails, { sequence: sequence || null });
+
+        const r = Rest
+            .get('site_scm_extension:fscm-sales-orders-for-orders-hub/create_salesOrdersForOrderHub-lines')
+            .body(lineObject)
+            .parameters({
+                fields: fields,
+                onlyData: onlyData,
+                'salesOrdersForOrderHub_Id': orderDetails.HeaderId
+            });
+
+        return r.fetch();
+    }
+
+    public async create_batchPrepare(id: string, value: any, orderDetails: any, Rest: IRestObject, { onlyData = true, sequence = null } = {}): Promise<IBatchOperationBodyPart> {
+        const lineObject = this._createPayload(value, orderDetails, { sequence: sequence || null });
+
+        const r = Rest
+            .get('site_scm_extension:fscm-sales-orders-for-orders-hub/create_salesOrdersForOrderHub-lines')
+            .body(lineObject)
+            .parameters({
+                onlyData: onlyData,
+                'salesOrdersForOrderHub_Id': orderDetails.HeaderId
+            });
+
+        const path = await r.toRelativeUrl();
+
+        const part: IBatchOperationBodyPart = {
+            id,
+            operation: 'create',
+            path: path || '',
+            payload: lineObject
+        }
+
+        return part;
+    }
+
+    public delete(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented.')
+    }
+
+    public delete_batchPrepare(): Promise<IBatchOperationBodyPart> {
+        throw new Error('Method not yet implemented.')
+    }
+
+    public deleteOne(headerId: string, key: string, Rest: IRestObject) {
+        const body = ({
+            OrderedQuantity: 0
+        });
+
+        return this._update(headerId, key, body, Rest);
+    }
+
+    public async deleteAll(headerId: string, lines: any, Rest: IRestObject) {
+        const body = ({
+            OrderedQuantity: 0
+        });
+
+        const updates = [];
+
+        for (const line of lines) {
+            const key = line._context.key;
+
+            const update = await this._update(headerId, key, body, Rest);
+
+            updates.push({
+                ...update,
+                key
+            });
+        }
+
+        return updates;
+    }
+
+    public update(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented.')
+    }
+
+    public update_batchPrepare(): Promise<IBatchOperationBodyPart> {
+        throw new Error('Method not yet implemented.')
+    }
+
+    public async updateQuantity(headerId: string, key: string, quantity: number, charges: any, Rest: IRestObject, { fields = "", onlyData = true } = {}) {
+        let body = {
+            OrderedQuantity: quantity
+        };
+
+        const chargeComponentArray = charges.flatMap((c: any) => c.chargeComponents.map((cc: any) => ({
+            ...cc,
+            chargeKey: c._context.key
+        })));
+
+        for (const component of chargeComponentArray) {
+            const r = Rest
+                .get('site_scm_extension:fscm-sales-orders-for-orders-hub/update_salesOrdersForOrderHub-lines-charges-chargeComponents')
+                .body({
+                    "HeaderCurrencyExtendedAmount": component.HeaderCurrencyUnitPrice * (quantity || 1)
+                })
+                .parameters({
+                    onlyData: onlyData,
+                    'salesOrdersForOrderHub_Id': headerId,
+                    'salesOrdersForOrderHub_lines_Id': key,
+                    'salesOrdersForOrderHub_lines_charges_Id': component.chargeKey,
+                    'salesOrdersForOrderHub_lines_charges_chargeComponents_Id': component._context.key,
+                });
+
+            await r.fetch();
+        }
+
+        // call private update
+        return this._update(headerId, key, body, Rest, { fields, onlyData });
+    }
+
+    private _createPayload(value: any, orderDetails: any, { sequence = null } = {}) {
         const linePriceInstance = new SalesOrderLineChargeComponent({
             "SourceChargeComponentId": "C1-CC1",
             "PriceElementCode": "QP_LIST_PRICE",
@@ -54,83 +176,8 @@ export class SalesOrderLine {
             throw new ApplicationError(lineValid.message);
         }
 
-        const lineObject = line.toObject(true);
-
-        const r = Rest
-            .get('site_scm_extension:fscm-sales-orders-for-orders-hub/create_salesOrdersForOrderHub-lines')
-            .body(lineObject)
-            .parameters({
-                fields: fields,
-                onlyData: onlyData,
-                'salesOrdersForOrderHub_Id': orderDetails.HeaderId
-            });
-
-        return r.fetch();
+        return line.toObject(true);
     }
-
-    public find() { }
-
-    public findAll() { }
-
-    public deleteOne(headerId: string, key: string, Rest: IRestObject) {
-        const body = ({
-            OrderedQuantity: 0
-        });
-
-        return this._update(headerId, key, body, Rest);
-    }
-
-    public async deleteAll(headerId: string, lines: any, Rest: IRestObject) {
-        const body = ({
-            OrderedQuantity: 0
-        });
-
-        const updates = [];
-
-        for (const line of lines) {
-            const key = line._context.key;
-
-            const update = await this._update(headerId, key, body, Rest);
-
-            updates.push({
-                ...update,
-                key
-            });
-        }
-
-        return updates;
-    }
-
-    public async updateQuantity(headerId: string, key: string, quantity: number, charges: any, Rest: IRestObject, { fields = "", onlyData = true } = {}) {
-            let body = {
-                OrderedQuantity: quantity
-            };
-
-            const chargeComponentArray = charges.flatMap((c:any) => c.chargeComponents.map((cc:any) => ({
-                ...cc,
-                chargeKey: c._context.key
-            })));
-
-            for (const component of chargeComponentArray) {
-                const r = Rest
-                    .get('site_scm_extension:fscm-sales-orders-for-orders-hub/update_salesOrdersForOrderHub-lines-charges-chargeComponents')
-                    .body({
-                        "HeaderCurrencyExtendedAmount": component.HeaderCurrencyUnitPrice * (quantity || 1)
-                    })
-                    .parameters({
-                        onlyData: onlyData,
-                        'salesOrdersForOrderHub_Id': headerId,
-                        'salesOrdersForOrderHub_lines_Id': key,
-                        'salesOrdersForOrderHub_lines_charges_Id': component.chargeKey,
-                        'salesOrdersForOrderHub_lines_charges_chargeComponents_Id': component._context.key,
-                    });
-
-                await r.fetch();
-            }
-
-            // call private update
-            return this._update(headerId, key, body, Rest, { fields, onlyData });
-        }
 
     private _update(headerId: string, key: string, body: any, Rest: IRestObject, { fields = "", onlyData = true } = {}) {
         const r = Rest

@@ -1,10 +1,18 @@
 import { SalesOrderCreate } from "./models/sales-order-create";
-import { IRestObject, ApplicationError } from '@wolseley/common';
+import { IRestObject, ApplicationError, IRestService, IRestResponse, IBatchOperationBodyPart } from '@wolseley/common';
 export { SalesOrderCreate } from "./models/sales-order-create";
 
-export class SalesOrder {
+export class SalesOrder implements IRestService {
 
-    public async create(orderDetails: any, Rest: IRestObject, { fields = "", onlyData = true } = {}) {
+    public find(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented')
+    }
+
+    public findAll(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented')
+    }
+
+    public async create(orderDetails: any, Rest: IRestObject, { fields = "", onlyData = true } = {}): Promise<IRestResponse> {
         const trxId = await this.getSalesOrderNumber(Rest);
 
         Object.assign(orderDetails,
@@ -38,9 +46,30 @@ export class SalesOrder {
 
     }
 
-    public find() { }
+    public create_batchPrepare(): Promise<IBatchOperationBodyPart> {
+        throw new Error('Method not yet implemented')
+    }
 
-    public findAll() { }
+    public update(headerId: string, changes: any, Rest: IRestObject, { fields = ["HeaderId"], onlyData = true } = {}): Promise<IRestResponse> {
+        const f = [
+            ...fields,
+            ...Object.keys(changes)
+        ];
+
+        return this._update(headerId, changes, Rest, { fields: f.join(','), onlyData });
+    }
+
+    public update_batchPrepare(): Promise<IBatchOperationBodyPart> {
+        throw new Error('Method not yet implemented')
+    }
+
+    public delete(): Promise<IRestResponse> {
+        throw new Error('Method not yet implemented.')
+    }
+
+    public delete_batchPrepare(): Promise<IBatchOperationBodyPart> {
+        throw new Error('Method not yet implemented.')
+    }
 
     public submit(headerId: string, Rest: IRestObject, { fields = "HeaderId", onlyData = true } = {}) {
         const body = {
@@ -48,15 +77,6 @@ export class SalesOrder {
         };
 
         return this._update(headerId, body, Rest, { fields, onlyData });
-    }
-
-    public update(headerId: string, changes: any, Rest: IRestObject, { fields = ["HeaderId"], onlyData = true } = {}) {
-        const f = [
-            ...fields,
-            ...Object.keys(changes)
-        ];
-
-        return this._update(headerId, changes, Rest, { fields: f.join(','), onlyData });
     }
 
     private _update(headerId: string, body: any, Rest: IRestObject, { fields = "HeaderId", onlyData = true } = {}) {
