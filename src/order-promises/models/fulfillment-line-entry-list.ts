@@ -1,12 +1,12 @@
 import { BaseModel, mergeObjects } from "@wolseley/common"
-import { FulfilmentLine } from "./fulfilment-line";
+import { FulfillmentLine } from "./fulfillment-line";
 
-export class FulfilmentLineEntryList extends BaseModel {
+export class FulfillmentLineEntryList extends BaseModel {
 
-    public FulfilmentLine: Partial<FulfilmentLine> | null = null;
+    public FulfillmentLine: Partial<FulfillmentLine> | null = null;
 
     protected _required = [
-        "FulfilmentLine"
+        "FulfillmentLine"
     ]
 
     constructor(initialData?: any) {

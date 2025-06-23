@@ -1,7 +1,7 @@
 import { BaseModel, mergeObjects } from "@wolseley/common"
 import { RequestedShipFromOrg } from "./requested-ship-from-org";
 
-export class FulfilmentLine extends BaseModel {
+export class FulfillmentLine extends BaseModel {
 
     public FulfillmentLineIdentifier: string = "1";
     public SalesOrderNumber: string = "001";

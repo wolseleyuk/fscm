@@ -1,5 +1,5 @@
 import { BaseModel, mergeObjects } from "@wolseley/common"
-import { FulfilmentLineEntryList } from "./fulfilment-line-entry-list";
+import { FulfillmentLineEntryList } from "./fulfillment-line-entry-list";
 
 export class CheckAvailabilityFind extends BaseModel {
     
@@ -9,7 +9,7 @@ export class CheckAvailabilityFind extends BaseModel {
     public RequestTimeZone: string = "GMT";
     public ReleaseNumber: string = "1110990";
     public UniqueOrderIdentifier: string = "1110990";
-    public FulfilmentLineEntryList: FulfilmentLineEntryList | null = null;
+    public FulfillmentLineEntryList: FulfillmentLineEntryList | null = null;
 
 
     protected _required = [
@@ -19,7 +19,7 @@ export class CheckAvailabilityFind extends BaseModel {
         "RequestTimeZone",
         "ReleaseNumber",
         "UniqueOrderIdentifier",
-        "FulfilmentLineEntryList"
+        "FulfillmentLineEntryList"
     ]
 
     constructor(initialData?: any) {
