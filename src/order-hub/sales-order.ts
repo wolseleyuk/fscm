@@ -103,4 +103,8 @@ export class SalesOrder implements IRestService {
         return `1BL|${salesOrderNumber}`;
     }
 
+    static get model() {
+        return new SalesOrderCreate
+    }
+
 }
